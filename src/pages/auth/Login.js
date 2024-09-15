@@ -35,9 +35,9 @@ function Login() {
         localStorage.setItem("user-token", token);
         localStorage.setItem("user-role", role);
         if (role === "patient") {
-          window.href = "/patient";
-        } else if (role === "doctor") {
-          window.href = "/doctor";
+          window.location.href = "/patient";
+        } else if (role === "dentist") {
+          window.location.href = "/doctor";
         }
       }
     } catch (error) {
