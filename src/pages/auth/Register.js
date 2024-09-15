@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import {
   Container,
   FormControl,
@@ -10,7 +9,10 @@ import {
   Button,
   Link,
   Select,
+  Image,
+  Box,
 } from "@chakra-ui/react";
+import { fetchRegister } from "../../fetchers/fetchRegister";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -19,6 +21,8 @@ function Register() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState("");
+  const [imageSrc, setImageSrc] = useState("");
+  const [imageFile, setImageFile] = useState();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -26,14 +30,15 @@ function Register() {
     setError(null);
 
     try {
-      const response = await axios.post("http://localhost:3000/register", {
+      const data = await fetchRegister({
         email,
         name,
         role,
         raw_password: password,
+        imageFile,
       });
 
-      const { success, token } = response.data;
+      const { success, token } = data;
 
       if (success && token) {
         localStorage.setItem("user-token", token);
@@ -49,75 +54,116 @@ function Register() {
   }
 
   return (
-    <Container
-      maxW="md"
+    <Box
       minHeight={"100vh"}
-      display={"flex"}
-      flexDirection={"column"}
-      alignItems={"center"}
-      padding={20}
+      bgImage="url('/images/dental-clinic.jpg')" // Replace with your background image URL
+      bgSize="cover"
+      bgPosition="center"
       paddingTop={50}
     >
-      <Heading size={"xl"}>Register</Heading>
+      <Container
+        maxW="md"
+        minHeight={"100vh"}
+        display={"flex"}
+        flexDirection={"column"}
+        alignItems={"center"}
+        padding={20}
+        bgColor={"#b2f5eadb"}
+        borderRadius={20}
+      >
+        <Heading size={"xl"}>Register</Heading>
 
-      <form style={{ marginTop: 40 }} onSubmit={handleSubmit}>
-        <Grid gap={5}>
-          <FormControl htmlFor="email">
-            <FormLabel>Email address</FormLabel>
-            <Input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="name">Name</FormLabel>
-            <Input
-              type="name"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </FormControl>
-          <Select
-            placeholder="Select role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            required
-          >
-            <option value="patient">Patient</option>
-            <option value="dentist">Dentist</option>
-          </Select>
-          <FormControl>
-            <FormLabel htmlFor="password">Password</FormLabel>
-            <Input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </FormControl>
-        </Grid>
-        {error && <p className="error">{error}</p>}
-        <Button
-          type="submit"
-          marginTop={5}
-          marginX={"auto"}
-          disabled={loading}
-          display="block"
+        <form
+          style={{ marginTop: 40, maxWidth: "215px" }}
+          onSubmit={handleSubmit}
         >
-          {loading ? "Logging in..." : "Register"}
-        </Button>
-      </form>
+          <Grid gap={5}>
+            <FormControl htmlFor="email">
+              <FormLabel>Email address</FormLabel>
+              <Input
+                borderColor="black.300"
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="name">Name</FormLabel>
+              <Input
+                borderColor="black.300"
+                type="name"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </FormControl>
+            <Select
+              placeholder="Select role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              required
+            >
+              <option value="patient">Patient</option>
+              <option value="dentist">Dentist</option>
+            </Select>
+            {role === "dentist" && (
+              <FormControl width={"100%"}>
+                <FormLabel>Upload profile picture</FormLabel>
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      setImageFile(file);
+                      const reader = new FileReader();
 
-      <Link href="/login" color="blue" marginTop={10}>
-        Go to login.
-      </Link>
-    </Container>
+                      reader.onload = function (e) {
+                        setImageSrc(e.target.result);
+                      };
+
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                />
+              </FormControl>
+            )}
+
+            {imageSrc && (
+              <Image src={imageSrc} maxWidth={"200px"} objectFit={"contain"} />
+            )}
+
+            <FormControl>
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <Input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </FormControl>
+          </Grid>
+          {error && <p className="error">{error}</p>}
+          <Button
+            type="submit"
+            marginTop={5}
+            marginX={"auto"}
+            disabled={loading}
+            display="block"
+          >
+            {loading ? "Logging in..." : "Register"}
+          </Button>
+        </form>
+
+        <Link href="/login" color="blue" marginTop={10}>
+          Go to login.
+        </Link>
+      </Container>
+    </Box>
   );
 }
 

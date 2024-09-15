@@ -3,7 +3,6 @@ import { Nav } from "../components/Nav";
 import { logout } from "./auth/helpers";
 import { useQuery } from "react-query";
 import { fetchDentistsAll } from "../fetchers/fetchDentistsAll";
-import { div } from "framer-motion/client";
 
 function Patient() {
   const { data: dentists, isLoading } = useQuery({
@@ -45,6 +44,15 @@ function Patient() {
             {dentists?.map((d, i) => (
               <Card>
                 <CardBody>
+                  <Image
+                    src={
+                      d.profile_img
+                        ? `http://localhost:3000/${d.profile_img}`
+                        : "https://placehold.co/600x400"
+                    }
+                    alt="profile picture"
+                    borderRadius="lg"
+                  />
                   <Text>{d.name}</Text>
                   <Text>{d.email}</Text>
                 </CardBody>
