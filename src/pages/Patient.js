@@ -1,5 +1,6 @@
 import { Box, Link, Image } from "@chakra-ui/react";
 import { Nav } from "../components/Nav";
+import { logout } from "./auth/helpers";
 
 function Patient() {
   return (
@@ -14,6 +15,9 @@ function Patient() {
         >
           <Link href="">About us</Link>
           <Link href="">Contact</Link>
+          <Link href="/login" onClick={logout}>
+            Logout
+          </Link>
         </Box>
       </Nav>
       <Box
