@@ -4,10 +4,10 @@ import "./index.css";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/react";
 import { Homepage } from "./pages/Homepage";
 import { Patient } from "./pages/Patient";
 import { Doctor } from "./pages/Doctor";
+import { RootProvider } from "./components/RootProvider";
 
 const router = createBrowserRouter([
   {
@@ -36,8 +36,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ChakraProvider>
+    <RootProvider>
       <RouterProvider router={router} />
-    </ChakraProvider>
+    </RootProvider>
   </React.StrictMode>
 );
