@@ -1,0 +1,40 @@
+ <Card
+          border={"1px solid grey"}
+          background={"black"}
+          textColor={"white"}
+          maxW="sm"
+          overflow="hidden"
+          variant="outline"
+          py="2"
+          alignItems={"center"}
+        >
+          <CardHeader>
+            <Heading size="md">Services</Heading>
+          </CardHeader>
+          <CardBody>
+            <UnorderedList spacing={4}>
+              <ListItem>
+                Implanthology <br /> Building-in of mini implants
+              </ListItem>
+              <ListItem>
+                Dental Prosthetics <br /> Ceramic Veneers Metal-free and
+                metal-ceramics crowns and bridges Implant prosthetics
+              </ListItem>
+              <ListItem>
+                Oral Surgery <br /> Surgical tooth extraction <br /> Root
+                resection Surgery of jaw cyst <br /> Surgical Orthodontic
+                Treatment Sinus lift Frenectomy
+              </ListItem>
+              <ListItem>Aesthetic Dentistry</ListItem>
+              <ListItem>
+                Periodontology <br /> Removal of solid and soft dental deposits
+                and tooth polishing
+              </ListItem>
+              <ListItem>Orthodontics</ListItem>
+              <ListItem>X-RAY Diagnostics</ListItem>
+              <ListItem>
+                Pediatric dental care <br /> Preventive checkups
+              </ListItem>
+            </UnorderedList>
+          </CardBody>
+        </Card>
