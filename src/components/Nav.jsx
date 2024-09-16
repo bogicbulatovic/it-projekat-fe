@@ -9,7 +9,7 @@ const Nav = ({ children }) => {
       gridAutoFlow={"column"}
       alignItems={"center"}
       justifyContent={"space-between"}
-      paddingX={10}
+      paddingX={"5vw"}
       paddingY={5}
     >
       {children}
