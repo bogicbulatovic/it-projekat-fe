@@ -106,6 +106,9 @@ const Doctor = () => {
                   <Th textAlign={"center"}>Description</Th>
                   <Th textAlign={"center"}>Price</Th>
                   <Th textAlign={"center"}>Delete</Th>
+                  <Th textAlign={"center"} display={"none"}>
+                    Id
+                  </Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -147,6 +150,7 @@ const Doctor = () => {
                         <MdDelete fontSize={20} />
                       </button>
                     </Td>
+                    <Td display={"none"}>{s.id}</Td>
                   </Tr>
                 ))}
               </Tbody>
@@ -165,8 +169,38 @@ const Doctor = () => {
             >
               Add new service
             </Button>
-            <Button colorScheme="blue">Save</Button>
-            <Button>Cancel</Button>
+            <Button
+              colorScheme="blue"
+              onClick={async () => {
+                const tableEl = document.querySelector("table");
+                const rowsEl = Array.from(tableEl.querySelectorAll("tbody tr"));
+
+                await Promise.all(
+                  rowsEl.map((r) => {
+                    const name = r.querySelector("td:nth-of-type(1)").innerText;
+                    const description =
+                      r.querySelector("td:nth-of-type(2)").innerText;
+                    const price =
+                      r.querySelector("td:nth-of-type(3)").innerText;
+                    const id = r.querySelector("td:nth-of-type(5)").innerText;
+
+                    return fetchClient("/services/" + id, {
+                      method: "PUT",
+                      contentType: "application/json",
+                      body: JSON.stringify({
+                        name,
+                        description,
+                        price,
+                      }),
+                    });
+                  })
+                );
+
+                window.alert("Database updated");
+              }}
+            >
+              Save
+            </Button>
           </Box>
         </TableContainer>
       </Box>
@@ -226,6 +260,11 @@ const Doctor = () => {
                 });
                 await refetchServices();
                 setModalOpen(false);
+                setNewService({
+                  name: "",
+                  description: "",
+                  price: "",
+                });
               }}
             >
               Add
