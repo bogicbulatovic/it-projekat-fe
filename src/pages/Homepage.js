@@ -13,7 +13,7 @@ function Homepage() {
           gap={{ base: 5, md: 10, lg: 20 }}
         >
           <Link href="/login">Login</Link>
-          <Link href="regiser">Register</Link>
+          <Link href="/register">Register</Link>
         </Box>
       </Nav>
       <Box
