@@ -88,7 +88,7 @@ const Doctor = () => {
           alignItems={"center"}
           gap={{ base: 3, md: 20 }}
         >
-          <Link href="/appointments">My Appointments</Link>
+          <Link href="#">My Appointments</Link>
           <Link href="">About us</Link>
           <Link href="/login" onClick={logout}>
             Logout
