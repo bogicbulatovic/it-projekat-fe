@@ -8,6 +8,7 @@ import { Homepage } from "./pages/Homepage";
 import { Patient } from "./pages/Patient";
 import { Doctor } from "./pages/Doctor";
 import { RootProvider } from "./components/RootProvider";
+import { Appointments } from "./pages/Appointments";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/doctor",
     element: <Doctor />,
+  },
+  {
+    path: "/appointments",
+    element: <Appointments />,
   },
 ]);
 
