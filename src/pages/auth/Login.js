@@ -50,18 +50,21 @@ function Login() {
 
   return (
     <Box
-      minHeight={"100vh"}
+      height={"100vh"}
       bgImage="url('/images/dental-clinic.jpg')" // Replace with your background image URL
       bgSize="cover"
       bgPosition="center"
       paddingTop={50}
+      paddingX={"5vw"}
+      paddingBottom={50}
     >
       <Container
         maxW="md"
         display={"flex"}
         flexDirection={"column"}
         alignItems={"center"}
-        padding={20}
+        paddingY={10}
+        paddingX={{ base: "5vw" }}
         bgColor={"#b2f5eadb"}
         borderRadius={20}
       >

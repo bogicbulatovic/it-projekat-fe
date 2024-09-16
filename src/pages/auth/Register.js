@@ -60,14 +60,16 @@ function Register() {
       bgSize="cover"
       bgPosition="center"
       paddingTop={50}
+      paddingX={"5vw"}
+      paddingBottom={50}
     >
       <Container
         maxW="md"
-        minHeight={"100vh"}
         display={"flex"}
         flexDirection={"column"}
         alignItems={"center"}
-        padding={20}
+        paddingY={10}
+        paddingX={{ base: "5vw" }}
         bgColor={"#b2f5eadb"}
         borderRadius={20}
       >
@@ -102,6 +104,7 @@ function Register() {
             </FormControl>
             <Select
               placeholder="Select role"
+              borderColor="black.300"
               value={role}
               onChange={(e) => setRole(e.target.value)}
               required
@@ -113,6 +116,7 @@ function Register() {
               <FormControl width={"100%"}>
                 <FormLabel>Upload profile picture</FormLabel>
                 <Input
+                  borderColor="black.300"
                   type="file"
                   accept="image/*"
                   onChange={(e) => {
@@ -139,6 +143,7 @@ function Register() {
             <FormControl>
               <FormLabel htmlFor="password">Password</FormLabel>
               <Input
+                borderColor="black.300"
                 type="password"
                 id="password"
                 value={password}
