@@ -11,6 +11,7 @@ const Nav = ({ children }) => {
       justifyContent={"space-between"}
       paddingX={"5vw"}
       paddingY={5}
+      borderBottom={"2px solid lightGray"}
     >
       {children}
     </Box>

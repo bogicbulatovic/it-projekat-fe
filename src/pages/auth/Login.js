@@ -29,11 +29,13 @@ function Login() {
         raw_password: password,
       });
 
-      const { success, token, role } = response.data;
+      const { success, token, role, profile_img, name } = response.data;
 
       if (success && token) {
         localStorage.setItem("user-token", token);
         localStorage.setItem("user-role", role);
+        localStorage.setItem("user-image", profile_img);
+        localStorage.setItem("user-name", name);
         if (role === "patient") {
           window.location.href = "/patient";
         } else if (role === "dentist") {
