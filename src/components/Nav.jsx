@@ -6,6 +6,7 @@ const Nav = ({ children }) => {
       as={"nav"}
       minHeight={70}
       display={"grid"}
+      width={"100vw"}
       gridAutoFlow={"column"}
       alignItems={"center"}
       justifyContent={"space-between"}

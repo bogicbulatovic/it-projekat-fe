@@ -37,7 +37,7 @@ import { fetchClient } from "../fetchers/fetchClient";
 
 const Doctor = () => {
   const {
-    data: services,
+    data: _services,
     isLoading,
     refetch: refetchServices,
   } = useQuery({
@@ -56,6 +56,14 @@ const Doctor = () => {
   const handleNewSeviceChange = (e) => {
     setNewService({ ...newService, [e.target.name]: e.target.value });
   };
+
+  const [searchName, setSearchName] = useState("");
+
+  const services = _services?.filter((s) =>
+    searchName
+      ? s.name.toLowerCase().startsWith(searchName.toLowerCase())
+      : true
+  );
 
   return (
     <Box minHeight={"100vh"} paddingBottom={20}>
@@ -88,10 +96,22 @@ const Doctor = () => {
         </Box>
       </Nav>
 
-      <Box paddingX={{ base: "5vw", md: "3vw" }} paddingTop={10}>
+      <Box
+        paddingX={{ base: "5vw", md: "3vw" }}
+        width={"100vw"}
+        paddingTop={10}
+      >
         <Heading textAlign={"center"}>Ordination services</Heading>
+
+        <FormControl maxWidth={"250px"} marginX={"auto"} marginTop={10}>
+          <FormLabel>Search name</FormLabel>
+          <Input
+            value={searchName}
+            onChange={(e) => setSearchName(e.target.value)}
+          />
+        </FormControl>
         <TableContainer
-          marginTop={10}
+          marginTop={5}
           width={"100%"}
           maxWidth={"600px"}
           marginX={"auto"}
