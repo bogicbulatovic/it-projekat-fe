@@ -178,6 +178,8 @@ const Doctor = () => {
           )}
         </TableContainer>
         <Box
+          maxWidth={"600px"}
+          marginX={"auto"}
           marginY={"20px"}
           display={"grid"}
           gridTemplateColumns={{ base: "1fr", md: "1fr 1fr 1fr 1fr" }}
