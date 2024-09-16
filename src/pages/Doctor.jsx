@@ -176,53 +176,52 @@ const Doctor = () => {
               </Tbody>
             </Table>
           )}
-          <Box
-            marginY={"20px"}
-            display={"grid"}
-            gridTemplateColumns={{ base: "1fr", md: "1fr 1fr 1fr 1fr" }}
-            gap={{ base: 5, md: 2 }}
-          >
-            <Button
-              colorScheme="teal"
-              variant="outline"
-              onClick={() => setModalOpen(true)}
-            >
-              Add new service
-            </Button>
-            <Button
-              colorScheme="blue"
-              onClick={async () => {
-                const tableEl = document.querySelector("table");
-                const rowsEl = Array.from(tableEl.querySelectorAll("tbody tr"));
-
-                await Promise.all(
-                  rowsEl.map((r) => {
-                    const name = r.querySelector("td:nth-of-type(1)").innerText;
-                    const description =
-                      r.querySelector("td:nth-of-type(2)").innerText;
-                    const price =
-                      r.querySelector("td:nth-of-type(3)").innerText;
-                    const id = r.querySelector("td:nth-of-type(5)").innerText;
-
-                    return fetchClient("/services/" + id, {
-                      method: "PUT",
-                      contentType: "application/json",
-                      body: JSON.stringify({
-                        name,
-                        description,
-                        price,
-                      }),
-                    });
-                  })
-                );
-
-                window.alert("Database updated");
-              }}
-            >
-              Save
-            </Button>
-          </Box>
         </TableContainer>
+        <Box
+          marginY={"20px"}
+          display={"grid"}
+          gridTemplateColumns={{ base: "1fr", md: "1fr 1fr 1fr 1fr" }}
+          gap={{ base: 5, md: 2 }}
+        >
+          <Button
+            colorScheme="teal"
+            variant="outline"
+            onClick={() => setModalOpen(true)}
+          >
+            Add new service
+          </Button>
+          <Button
+            colorScheme="blue"
+            onClick={async () => {
+              const tableEl = document.querySelector("table");
+              const rowsEl = Array.from(tableEl.querySelectorAll("tbody tr"));
+
+              await Promise.all(
+                rowsEl.map((r) => {
+                  const name = r.querySelector("td:nth-of-type(1)").innerText;
+                  const description =
+                    r.querySelector("td:nth-of-type(2)").innerText;
+                  const price = r.querySelector("td:nth-of-type(3)").innerText;
+                  const id = r.querySelector("td:nth-of-type(5)").innerText;
+
+                  return fetchClient("/services/" + id, {
+                    method: "PUT",
+                    contentType: "application/json",
+                    body: JSON.stringify({
+                      name,
+                      description,
+                      price,
+                    }),
+                  });
+                })
+              );
+
+              window.alert("Database updated");
+            }}
+          >
+            Save
+          </Button>
+        </Box>
       </Box>
 
       <Modal
