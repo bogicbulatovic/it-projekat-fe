@@ -38,6 +38,8 @@ function Patient() {
 
   const [submitting, setSubmitting] = useState(false);
 
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
@@ -59,12 +61,15 @@ function Patient() {
         }),
       });
       setSubmitting(false);
+      setIsSubmitted(true);
     } catch (err) {
       console.error(err);
       window.alert(err);
       setSubmitting(false);
     }
   };
+
+  console.log({ dentists });
 
   return (
     <Box minHeight={"100vh"}>
@@ -114,72 +119,85 @@ function Patient() {
           Schedule appointment
         </Heading>
 
-        <form
-          style={{
-            maxWidth: "500px",
-            margin: "0 auto",
-            paddingTop: "30px",
-            display: "grid",
-            gap: 20,
-          }}
-          onSubmit={handleSubmit}
-        >
-          <FormControl>
-            <FormLabel>Choose service</FormLabel>
-            <Select
-              placeholder="Select service"
-              borderColor="black.300"
-              required
-              name="service"
-              value={values.service}
-              onChange={handleChange}
-            >
-              {services?.map((s) => (
-                <option key={s.name} value={s.name}>
-                  {s.name} ${s.price}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl>
-            <FormLabel>Select time</FormLabel>
-            <Input
-              required
-              name="datetime"
-              value={values.datetime}
-              onChange={handleChange}
-              type="datetime-local"
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Choose dentist</FormLabel>
-            <Select
-              name="dentistId"
-              value={values.dentistId}
-              onChange={handleChange}
-              placeholder="Select dentist"
-              borderColor="black.300"
-              required
-            >
-              {dentists?.map((d, i) => (
-                <option key={i} value={d.id}>
-                  {d.name}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-          <Button
-            type="submit"
-            bgColor="teal.200"
-            width={"max-content"}
-            minWidth={"200px"}
-            marginX={"auto"}
-            disabled={submitting}
-            opacity={submitting ? 0.5 : 1}
+        {isSubmitted ? (
+          <Box textAlign={"center"} marginTop={"20px"}>
+            <Text fontSize="20px">
+              Appointment scheduled! <br />
+              Service: {values.service} <br />
+              Date: {values.datetime} <br />
+              Dentist:{" "}
+              {dentists?.find((d) => d.id === Number(values.dentistId)).name}
+              <br />
+            </Text>
+          </Box>
+        ) : (
+          <form
+            style={{
+              maxWidth: "500px",
+              margin: "0 auto",
+              paddingTop: "30px",
+              display: "grid",
+              gap: 20,
+            }}
+            onSubmit={handleSubmit}
           >
-            {submitting ? "Submitting..." : "Submit"}
-          </Button>
-        </form>
+            <FormControl>
+              <FormLabel>Choose service</FormLabel>
+              <Select
+                placeholder="Select service"
+                borderColor="black.300"
+                required
+                name="service"
+                value={values.service}
+                onChange={handleChange}
+              >
+                {services?.map((s) => (
+                  <option key={s.name} value={s.name}>
+                    {s.name} ${s.price}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl>
+              <FormLabel>Select time</FormLabel>
+              <Input
+                required
+                name="datetime"
+                value={values.datetime}
+                onChange={handleChange}
+                type="datetime-local"
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Choose dentist</FormLabel>
+              <Select
+                name="dentistId"
+                value={values.dentistId}
+                onChange={handleChange}
+                placeholder="Select dentist"
+                borderColor="black.300"
+                required
+              >
+                {dentists?.map((d, i) => (
+                  <option key={i} value={d.id}>
+                    {d.name}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+            <Button
+              type="submit"
+              bgColor="teal.200"
+              width={"max-content"}
+              minWidth={"200px"}
+              marginX={"auto"}
+              disabled={submitting}
+              opacity={submitting ? 0.5 : 1}
+            >
+              {submitting ? "Submitting..." : "Submit"}
+            </Button>
+          </form>
+        )}
       </Box>
     </Box>
   );
